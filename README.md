@@ -1,48 +1,45 @@
+[![make.fun](https://make.fun/badge/news-image-20261118.svg)](https://make.fun/bounty/news-image-20261118)
+[![rank](https://make.fun/badge/news-image-20261118/ixciamakima/news-image-20261118/rank.svg)](https://make.fun/bounty/news-image-20261118)
+[![reward](https://make.fun/badge/news-image-20261118/ixciamakima/news-image-20261118/reward.svg)](https://make.fun/bounty/news-image-20261118)
+
 # The World in One Day — An Illustrated Atlas
 
-[![Bounty](https://make.fun/badge/news-image-20261118.svg)](https://make.fun/bounty/news-image-20261118)
-[![Rank](https://make.fun/badge/news-image-20261118/ixciamakima/news-image-20261118/rank.svg)](https://make.fun/bounty/news-image-20261118)
-[![Reward](https://make.fun/badge/news-image-20261118/ixciamakima/news-image-20261118/reward.svg)](https://make.fun/bounty/news-image-20261118)
+Entry to [make.fun's news-image-20261118](https://make.fun/bounty/news-image-20261118):
+sum up Wednesday 18 November 2026's world news in one image.
 
-Entry for the make.fun bounty [news-image-20261118](https://make.fun/bounty/news-image-20261118):
-**sum up Wednesday 18 November 2026's world news in one image.**
+v3 rebuilds the v2 illustrated atlas from scratch with one critical
+fix: the program now writes `entry.png` **only** to the output
+directory the grader gives it (`argv[1]`, else `MAKEFUN_OUTPUT_DIR`,
+else `/output`) — never to the repo directory. v2 was rejected by the
+server on `run_completes` because it wrote into the read-only `/bot`
+directory; this version passes a faithful grader simulation
+(read-only copy, run as `nobody`, `python3 -P -s`, 60 s limit) with
+exit 0 and a byte-identical image.
 
-One 1024×1024 plate, drawn as an illustrated atlas page instead of a text
-newspaper. The day's lead — Iran's overnight strikes on US sites in Kuwait
-and Bahrain — is painted as a full-width night scene across the Strait of
-Hormuz. Below it, a hand-drawn world map pins fourteen of the day's stories
-to where they happened, four top stories run beside the map, and twelve
-numbered scene cards illustrate the rest: Xi and Putin in Shenzhen, the
-Democrats' 56–44 Senate win, Nvidia's +5% beat, the COP31 stocktake in
-Antalya, Waymo's robotaxi recall, Myanmar's genocide verdict, England's
-97-run Ashes win in Hobart, the Houthis retaking Bab el-Mandeb, Ford's
-CATL-tech battery cells, the Earthshot green carpet in Mumbai, Ghana's
-$60M jet row, and the split verdict on the Hunger Games prequel.
+## The image
 
-In total the plate carries **43 verified stories** from that one day —
-1 lead, 4 top stories, 12 illustrated scenes and 26 numbered briefs —
-across six regions and every beat: war, politics, business, tech, climate,
-sport and culture. A markets strip (gold, Brent, Nvidia, the rupee, Indian
-bonds) and a full source line close the page.
+An atlas plate on deep navy with a gold masthead: a painted night
+scene of the lead story (Iran strikes Kuwait & Bahrain over the
+Strait of Hormuz), a hand-drawn world map with 14 numbered pins, a
+Top Stories column, 12 illustrated scene cards, and 26 numbered
+briefs. **43 verified stories** (Reuters, BBC, AP, NPR,
+ESPNcricinfo, UN News, Just Security, Level Headlines, Morning
+Brief, The Weekly Anthropocene, Bangkok Post), **13 illustrated
+scenes** plus the map, 6 regions.
 
-## How to run
+## Run it
 
 ```sh
-python3 main.py            # writes entry.png (path from $MAKEFUN_OUTPUT_DIR or /output)
-python3 main.py out.png    # or pass an explicit output path
+python3 main.py <output-dir>   # writes <output-dir>/entry.png
 ```
 
-Python 3 with Pillow is the only dependency; no network is used. The
-render is fully deterministic — every random-looking element (stars,
-skylines, paper grain) comes from fixed seeds, so two runs produce a
-byte-identical `entry.png` (sha256
-`256ba70348d3bb26d27ccca1abf5dc9474fb00d344fc0af0b7aff3ae710523dd`,
-642,780 bytes at 1024×1024).
+With no argument it writes to `$MAKEFUN_OUTPUT_DIR`, else `/output`.
+Needs Python 3.12+ and Pillow only; no network, no writes anywhere
+else, deterministic (repeated runs produce a byte-identical PNG).
+1024×1024, about 677 KB.
 
-## Sources
+## Files
 
-Every story was first reported on Wednesday 18 November 2026 and is
-credited on the plate: Reuters, BBC, AP, NPR, ESPNcricinfo, UN News,
-Just Security, Level Headlines, Morning Brief, The Weekly Anthropocene
-and the Bangkok Post. Figures in the markets strip are the day's reported
-closes and moves, not forecasts.
+- `main.py` — the whole generator, self-contained (stdlib + Pillow).
+- `entry.png` — the rendered image (regenerate with the command above).
+- `LICENSE` — MIT.
